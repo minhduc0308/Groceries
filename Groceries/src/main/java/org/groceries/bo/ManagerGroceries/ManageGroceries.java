@@ -1,2 +1,4 @@
-package org.groceries.bo.ManagerGroceries;public class ManageGroceries {
+package org.groceries.bo.ManagerGroceries;
+
+public class ManageGroceries {
 }

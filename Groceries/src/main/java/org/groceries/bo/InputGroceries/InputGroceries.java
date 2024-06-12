@@ -1,2 +1,4 @@
-package org.groceries.bo.InputGroceries;public class InputGroceries {
+package org.groceries.bo.InputGroceries;
+
+public class InputGroceries {
 }
