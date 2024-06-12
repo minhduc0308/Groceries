@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBUtils {
-    private static final String DB_NAME = "ManageStudent";
+    private static final String DB_NAME = "Groceries";
     private static final String DB_USER_NAME = "sa";
-    private static final String DB_PASSWORD = "1234";
+    private static final String DB_PASSWORD = "123456";
 
     public static Connection getConnection() throws ClassNotFoundException, SQLException {
         Connection conn = null;
