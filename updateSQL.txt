@@ -1,0 +1,56 @@
+
+-- Trigger để giảm số lượng sản phẩm khi có đơn hàng mới
+CREATE TRIGGER trg_UpdateStockOnInsert
+ON OrderDetails
+AFTER INSERT
+AS
+BEGIN
+    UPDATE Products
+    SET Stock = Stock - i.Quantity
+    FROM Products p
+    INNER JOIN inserted i ON p.ProductID = i.ProductID
+END;
+
+-- Trigger để hoàn lại số lượng sản phẩm khi đơn hàng bị hủy
+CREATE TRIGGER trg_UpdateStockOnDelete
+ON OrderDetails
+AFTER DELETE
+AS
+BEGIN
+    UPDATE Products
+    SET Stock = Stock + d.Quantity
+    FROM Products p
+    INNER JOIN deleted d ON p.ProductID = d.ProductID
+END;
+
+-- Báo cáo doanh thu trong khoảng thời gian
+CREATE PROCEDURE sp_ReportRevenue
+    @StartDate DATE,
+    @EndDate DATE
+AS
+BEGIN
+    SELECT SUM(TotalAmount) AS TotalRevenue
+    FROM Invoices
+    WHERE InvoiceDate BETWEEN @StartDate AND @EndDate
+END;
+
+-- Thêm cột Cost vào bảng Products
+ALTER TABLE Products ADD Cost DECIMAL(10, 2);
+
+-- Báo cáo lợi nhuận trong khoảng thời gian
+CREATE PROCEDURE sp_ReportProfit
+    @StartDate DATE,
+    @EndDate DATE
+AS
+BEGIN
+    SELECT 
+        SUM(od.Quantity * (od.Price - p.Cost)) AS TotalProfit
+    FROM 
+        OrderDetails od
+    INNER JOIN 
+        Orders o ON od.OrderID = o.OrderID
+    INNER JOIN 
+        Products p ON od.ProductID = p.ProductID
+    WHERE 
+        o.OrderDate BETWEEN @StartDate AND @EndDate
+END;
