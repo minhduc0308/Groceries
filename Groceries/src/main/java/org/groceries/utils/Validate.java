@@ -1,5 +1,7 @@
 package org.groceries.utils;
 
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Scanner;
 public class Validate {
     private static final Scanner SCANNER = new Scanner(System.in);
@@ -71,6 +73,17 @@ public class Validate {
                 System.out.println("Must be number");
             }
         }
+    }
+
+    public static String formatVietnameseCurrency(int amount) {
+        // Tạo đối tượng NumberFormat cho Locale Vietnam
+        NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
+
+        // Định dạng số
+        String formattedAmount = formatter.format(amount);
+
+        // Thêm đơn vị "₫" vào cuối
+        return formattedAmount + " ₫";
     }
 
 }

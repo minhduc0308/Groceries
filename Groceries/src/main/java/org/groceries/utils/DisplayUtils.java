@@ -19,8 +19,9 @@ public class DisplayUtils {
         System.out.println("                                Manage Order                     ");
         System.out.println("=========================================================================");
         System.out.println("1. View All Order");
-        System.out.println("2. Update status order");
-        System.out.println("3. Exit");
+        System.out.println("2. View Details Order");
+        System.out.println("3. Update status order");
+        System.out.println("4. Exit");
 
     }
 }

@@ -4,6 +4,7 @@ import org.groceries.bo.InputGroceries.InputGroceries;
 import org.groceries.bo.ManagerGroceries.ManageGroceries;
 import org.groceries.constants.IConstants;
 import org.groceries.entities.ResponseOrderDTO;
+import org.groceries.entities.ResponseOrderDetailsDTO;
 import org.groceries.entities.StatusType;
 import org.groceries.utils.Validate;
 
@@ -22,23 +23,10 @@ public class GroceiesController {
     }
 
     public String updateStatusOrder() {
-        int id = Validate.getInt("Enter id of order: ", "Error input number in not range", "Invalid input number!", 1, Integer.MAX_VALUE );
-        int choiceStatus = Validate.getInt("1. Shipped\n 2. Cancelled\n 3. Processing\n 4. Completed\n", "Error input number in not range", "Invalid input number!", 1, Integer.MAX_VALUE );
-        StatusType statusType = null;
-        switch (choiceStatus){
-            case 1:
-                statusType = StatusType.Shipped;
-                break;
-            case 2:
-                statusType = StatusType.Cancelled;
-                break;
-            case 3:
-                statusType = StatusType.Processing;
-                break;
-            case 4:
-                statusType = StatusType.Completed;
-                break;
-        }
+        inputGroceries = new InputGroceries();
+
+        int id = inputGroceries.getInputIdOrder();
+        StatusType statusType = inputGroceries.getInputStatusOrder();
 
         if(manageGroceries.updateStatusOrder(id, statusType)){
             return "Update sucessfully order with id: " + id;
@@ -46,5 +34,11 @@ public class GroceiesController {
             return "Update failed order with id: " + id;
         }
 
+    }
+
+    public List<ResponseOrderDetailsDTO> displayOrderDetails() {
+        inputGroceries = new InputGroceries();
+        int id = inputGroceries.getInputIdOrder();
+        return manageGroceries.getOrderDetailsById(id);
     }
 }

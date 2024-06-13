@@ -1,6 +1,8 @@
 package org.groceries.DAO;
 import org.groceries.entities.Products;
 import org.groceries.entities.ResponseOrderDTO;
+import org.groceries.entities.ResponseOrderDetailsDTO;
+import org.groceries.utils.Validate;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -12,9 +14,11 @@ public class OrderDAO extends DBUtils{
     private PreparedStatement ps;
     private ResultSet rs;
     private List<ResponseOrderDTO> listOrder;
+    private List<ResponseOrderDetailsDTO> lisrOrderDetails;
 
     public OrderDAO() {
         listOrder = new ArrayList<>();
+        lisrOrderDetails = new ArrayList<>();
     }
 
     public boolean addOrderandOrderDetails(int customerID, String orderDate, String status, List<Products> listProduct, int quantity){
@@ -136,6 +140,36 @@ public class OrderDAO extends DBUtils{
         return listOrder;
     }
 
+    public List<ResponseOrderDetailsDTO> findOrderDetails(int orderIdInput){
+        String sql = "select o.OrderDetailID, o.OrderID, p.ProductName, p.Category, p.Price, o.Quantity from OrderDetails o\n" +
+                "join Products p\n" +
+                "on o.ProductID = p.ProductID\n" +
+                "where o.OrderID = ?";
+
+        try (Connection connection = DBUtils.getConnection()) {
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, orderIdInput);
+            rs = ps.executeQuery();
+
+            while (rs.next()){
+                int id = rs.getInt(1);
+                int orderId = rs.getInt(2);
+                String productName = rs.getString(3);
+                String category = rs.getString(4);
+                int price = rs.getInt(5);
+                int quantity = rs.getInt(6);
+
+                ResponseOrderDetailsDTO orderDetails = new ResponseOrderDetailsDTO(id, orderId, productName, category, Validate.formatVietnameseCurrency(price), quantity);
+
+                lisrOrderDetails.add(orderDetails);
+            }
+
+        }catch (SQLException | ClassNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+        return lisrOrderDetails;
+    }
+
 
     public static void main(String[] args) {
         OrderDAO orderDAO = new OrderDAO();
@@ -145,9 +179,10 @@ public class OrderDAO extends DBUtils{
 //
 //        orderDAO.addOrderandOrderDetails(1, "2022-02-02", "1", products , 1);
 
-        List<ResponseOrderDTO> list = orderDAO.findAllOrder();
 
-        for (ResponseOrderDTO o : list){
+        List<ResponseOrderDetailsDTO> list = orderDAO.findOrderDetails(1);
+
+        for (ResponseOrderDetailsDTO o : list){
             System.out.println(o);
         }
     }

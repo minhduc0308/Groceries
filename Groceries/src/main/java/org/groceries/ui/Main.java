@@ -2,6 +2,7 @@ package org.groceries.ui;
 
 import org.groceries.controller.GroceiesController;
 import org.groceries.entities.ResponseOrderDTO;
+import org.groceries.entities.ResponseOrderDetailsDTO;
 import org.groceries.utils.DisplayUtils;
 import org.groceries.utils.Validate;
 
@@ -51,7 +52,7 @@ public class Main {
         while (true){
             GroceiesController groceiesController = new GroceiesController();
             DisplayUtils.displayMenuManageOrder();
-            int choiceMenuManagerOrder = Validate.getChoice("Enter your choice", 1, 3);
+            int choiceMenuManagerOrder = Validate.getChoice("Enter your choice", 1, 4);
             switch (choiceMenuManagerOrder){
                 case 1:
                     List<ResponseOrderDTO> listOrder = groceiesController.displayAllOrder();
@@ -60,10 +61,16 @@ public class Main {
                     }
                     break;
                 case 2:
+                    List<ResponseOrderDetailsDTO> listOrderDetails = groceiesController.displayOrderDetails();
+                    for (ResponseOrderDetailsDTO o : listOrderDetails){
+                        System.out.println(o);
+                    }
+                    break;
+                case 3:
                     String updateStatus = groceiesController.updateStatusOrder();
                     System.out.println(updateStatus);
                     break;
-                case 3:
+                case 4:
                     System.exit(0);
                     break;
 
