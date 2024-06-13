@@ -4,6 +4,7 @@ import org.groceries.entities.ResponseOrderDTO;
 import org.groceries.entities.ResponseOrderDetailsDTO;
 import org.groceries.utils.Validate;
 
+import javax.swing.*;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class OrderDAO extends DBUtils{
     public OrderDAO() {
         listOrder = new ArrayList<>();
         lisrOrderDetails = new ArrayList<>();
+
     }
 
     public boolean addOrderandOrderDetails(int customerID, String orderDate, String status, List<Products> listProduct, int quantity){
@@ -185,5 +187,36 @@ public class OrderDAO extends DBUtils{
         for (ResponseOrderDetailsDTO o : list){
             System.out.println(o);
         }
+    }
+
+    public Products findProductById(int idProduct) {
+        String sql = "select * from Products p\n" +
+                "where p.ProductID = ?";
+
+        Products products = null;
+        try  (Connection connection = DBUtils.getConnection()) {
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, idProduct);
+
+            rs = ps.executeQuery();
+
+            if (rs.next()){
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                String category = rs.getString(3);
+                int price = rs.getInt(4);
+                int stock = rs.getInt(5);
+                BigDecimal cost = rs.getBigDecimal(6);
+
+                products = new Products(id, name, category, price, stock, cost);
+
+            }
+
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return products;
     }
 }

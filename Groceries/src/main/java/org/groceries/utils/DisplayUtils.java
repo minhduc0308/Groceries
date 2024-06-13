@@ -24,7 +24,8 @@ public class DisplayUtils {
         System.out.println("1. View All Order");
         System.out.println("2. View Details Order");
         System.out.println("3. Update status order");
-        System.out.println("4. Exit");
+        System.out.println("4. Add new order");
+        System.out.println("5. Exit");
 
     }
 }

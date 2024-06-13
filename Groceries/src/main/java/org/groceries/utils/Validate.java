@@ -115,4 +115,21 @@ public class Validate {
         return dateFormatter.format(date); // Trả về ngày đã được định dạng đúng
     }
 
+    public static LocalDate getDateFromUser(String prompt) {
+        Scanner scanner = new Scanner(System.in);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-dd-MM");
+        LocalDate date = null;
+
+        while (date == null) {
+            System.out.print(prompt);
+            String dateString = scanner.nextLine();
+            try {
+                date = LocalDate.parse(dateString, formatter);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Please use YYYY-dd-MM.");
+            }
+        }
+
+        return date;
+    }
 }

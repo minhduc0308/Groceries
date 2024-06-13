@@ -4,6 +4,7 @@ import org.groceries.DAO.OrderDAO;
 import org.groceries.DAO.ProfitDAO;
 import org.groceries.DAO.RevenueDAO;
 import org.groceries.controller.GroceiesController;
+import org.groceries.entities.OrderProduct;
 import org.groceries.entities.ResponseOrderDTO;
 import org.groceries.entities.ResponseOrderDetailsDTO;
 import org.groceries.entities.StatusType;
@@ -81,6 +82,15 @@ public class ManageGroceries {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public boolean addOrder(OrderProduct orderProduct) {
+        if(orderDAO.addOrderandOrderDetails(orderProduct.getCustomerId(), orderProduct.getOrderDate(),
+                orderProduct.getStatus(), orderProduct.getListProduct(), orderProduct.getQuantity())){
+            return true;
+        }else {
+            return false;
         }
     }
 }

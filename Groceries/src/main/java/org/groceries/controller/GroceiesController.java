@@ -3,6 +3,7 @@ package org.groceries.controller;
 import org.groceries.bo.InputGroceries.InputGroceries;
 import org.groceries.bo.ManagerGroceries.ManageGroceries;
 import org.groceries.constants.IConstants;
+import org.groceries.entities.OrderProduct;
 import org.groceries.entities.ResponseOrderDTO;
 import org.groceries.entities.ResponseOrderDetailsDTO;
 import org.groceries.entities.StatusType;
@@ -71,4 +72,13 @@ public class GroceiesController {
         }
     }
 
+    public String addOrder() {
+        inputGroceries = new InputGroceries();
+        OrderProduct orderProduct = inputGroceries.getInputAddNewOrder();
+        if(manageGroceries.addOrder(orderProduct)){
+            return "add new order succesfully!";
+        }else{
+            return "add new order failed!";
+        }
+    }
 }

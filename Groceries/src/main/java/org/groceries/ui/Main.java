@@ -141,6 +141,9 @@ public class Main {
                     System.out.println(updateStatus);
                     break;
                 case 4:
+                    System.out.println(groceiesController.addOrder());
+                    break;
+                case 5:
                     System.exit(0);
                     break;
 
