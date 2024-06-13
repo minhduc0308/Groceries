@@ -54,3 +54,14 @@ BEGIN
     WHERE 
         o.OrderDate BETWEEN @StartDate AND @EndDate
 END;
+
+CREATE TRIGGER trg_UpdateCost ON Products
+AFTER INSERT
+AS
+BEGIN
+    UPDATE Products
+    SET Cost = inserted.Price * 0.7 -- Giả sử chi phí là 70% giá bán
+    FROM Products
+    INNER JOIN inserted ON Products.ProductID = inserted.ProductID;
+END;
+
