@@ -9,6 +9,9 @@ public class DisplayUtils {
         System.out.println("2. update xxxx");
         System.out.println("3. delete xxx");
         System.out.println("4. Search xxx");
+        System.out.println("5. Report Stock");
+        System.out.println("6. Report Profit");
+        System.out.println("7. Report Revenue");
         System.out.println("8. Manage Order");
         System.out.println("5. Exit xxx");
 
@@ -16,7 +19,7 @@ public class DisplayUtils {
 
     public static void displayMenuManageOrder() {
         System.out.println("");
-        System.out.println("                                Manage Order                     ");
+        System.out.println("                                Manage Order                    ");
         System.out.println("=========================================================================");
         System.out.println("1. View All Order");
         System.out.println("2. View Details Order");

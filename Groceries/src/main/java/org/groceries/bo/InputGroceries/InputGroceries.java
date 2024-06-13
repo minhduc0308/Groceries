@@ -3,6 +3,11 @@ package org.groceries.bo.InputGroceries;
 import org.groceries.entities.StatusType;
 import org.groceries.utils.Validate;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
+import java.sql.*;
+
 public class InputGroceries {
 
     public int getInputIdOrder() {
@@ -27,5 +32,20 @@ public class InputGroceries {
                 break;
         }
         return statusType;
+    }
+
+
+    public Date getInputEndDate() {
+        System.out.println("Enter end Date: ");
+        Scanner scanner = new Scanner(System.in);
+        String endDate = scanner.nextLine();
+        return Date.valueOf(endDate);
+    }
+
+    public Date getInputStarDate() {
+        System.out.println("Enter start Date: ");
+        Scanner scanner = new Scanner(System.in);
+        String dateString = scanner.nextLine();
+        return Date.valueOf(dateString);
     }
 }

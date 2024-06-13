@@ -1,6 +1,10 @@
 package org.groceries.utils;
 
 import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
 public class Validate {
@@ -52,6 +56,8 @@ public class Validate {
         } while (true);
     }
 
+
+
     public static int getChoice(String mess, int min, int max) {
         Scanner sc = new Scanner(System.in);
         String input;
@@ -84,6 +90,29 @@ public class Validate {
 
         // Thêm đơn vị "₫" vào cuối
         return formattedAmount + " ₫";
+    }
+
+    public static String getInputDate() {
+        Scanner scanner = new Scanner(System.in);
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String inputDate;
+        LocalDate date = null;
+
+        while (true) {
+            System.out.print("Nhập ngày (theo định dạng YYYY-mm-dd): ");
+            inputDate = scanner.nextLine();
+
+            try {
+                date = LocalDate.parse(inputDate, dateFormatter);
+                break; // Nếu parse thành công, thoát khỏi vòng lặp
+            } catch (Exception e) {
+                System.out.println("Định dạng ngày không đúng. Vui lòng nhập lại.");
+            }
+        }
+
+        scanner.close(); // Đóng Scanner sau khi không cần thiết nữa
+
+        return dateFormatter.format(date); // Trả về ngày đã được định dạng đúng
     }
 
 }

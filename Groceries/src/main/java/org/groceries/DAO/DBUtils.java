@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBUtils {
-    private static final String DB_NAME = "ojt";
+    private static final String DB_NAME = "ojt2";
     private static final String DB_USER_NAME = "sa";
     private static final String DB_PASSWORD = "1234";
 
