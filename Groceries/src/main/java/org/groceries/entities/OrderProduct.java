@@ -14,6 +14,6 @@ public class OrderProduct {
     private int customerId;
     private String orderDate;
     private String status;
-    private List<Products> listProduct;
+    private List<ProductRequestDTO> listProduct;
     private int quantity;
 }

@@ -1,9 +1,11 @@
 package org.groceries.ui;
 
 import org.groceries.DAO.CustomerDAO;
+
 import org.groceries.DAO.RevenueDAO;
 import org.groceries.controller.GroceiesController;
 import org.groceries.entities.Customers;
+
 import org.groceries.entities.ResponseOrderDTO;
 import org.groceries.entities.ResponseOrderDetailsDTO;
 import org.groceries.utils.DisplayUtils;
@@ -28,13 +30,16 @@ public class Main {
                     manageCustomer();
                     break;
                 case 2:
-
+                    System.out.println("========= List Product =========");
+                    groceiesController.DisplayProduct();
                     break;
                 case 3:
-
+                    System.out.println("=========== Add Product ==========");
+                    groceiesController.AddProduct();
                     break;
                 case 4:
-
+                    System.out.println("=========== Update Product =========");
+                    groceiesController.UpdateProduct();
                     break;
                 case 5:
                     ResultSet rs = revenueDAO.getInventoryReport();
@@ -50,6 +55,16 @@ public class Main {
                     ManageOrder();
                     break;
                 case 9:
+//                    addInvoice(invoiceDAO);
+                    break;
+                case 10:
+//                    listAllInvoices(invoiceDAO);
+                    break;
+
+                case 11:
+//                    deleteInvoice(invoiceDAO);
+                    break;
+                case 12:
                     System.exit(0);
                     break;
             }
@@ -146,7 +161,6 @@ public class Main {
                 case 5:
                     System.exit(0);
                     break;
-
             }
         }
 

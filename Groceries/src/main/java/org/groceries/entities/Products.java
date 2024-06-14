@@ -6,14 +6,21 @@ public class Products {
     private int productId;
     private String productName;
     private String category;
-    private int price;
+    private double price;
     private int stock;
     private BigDecimal cost;
 
     public Products() {
     }
+    public Products(int productId, String productName, String category, double price, int stock) {
+        this.productId = productId;
+        this.productName = productName;
+        this.category = category;
+        this.price = price;
+        this.stock = stock;
 
-    public Products(int productId, String productName, String category, int price, int stock, BigDecimal cost) {
+    }
+    public Products(int productId, String productName, String category, double price, int stock, BigDecimal cost) {
         this.productId = productId;
         this.productName = productName;
         this.category = category;
@@ -46,11 +53,11 @@ public class Products {
         this.category = category;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -72,13 +79,7 @@ public class Products {
 
     @Override
     public String toString() {
-        return "Products{" +
-                "productId=" + productId +
-                ", productName='" + productName + '\'' +
-                ", category='" + category + '\'' +
-                ", price=" + price +
-                ", stock=" + stock +
-                ", cost=" + cost +
-                '}';
+        return String.format("Product ID: %-10s | Product Name: %-20s | Category: %-15s | Price: %-10s | Stock: %-10s",
+                productId, productName, category, price, stock);
     }
 }

@@ -2,6 +2,7 @@ package org.groceries.bo.InputGroceries;
 
 import org.groceries.DAO.OrderDAO;
 import org.groceries.entities.OrderProduct;
+import org.groceries.entities.ProductRequestDTO;
 import org.groceries.entities.Products;
 import org.groceries.entities.StatusType;
 import org.groceries.utils.Validate;
@@ -14,7 +15,7 @@ import java.util.Scanner;
 import java.sql.*;
 
 public class InputGroceries {
-    private List<Products> listProduct;
+    private List<ProductRequestDTO> listProduct;
     private OrderProduct orderProduct;
 
     public InputGroceries() {
@@ -86,7 +87,7 @@ public class InputGroceries {
         String continueInput;
         int quantity = 0;
         int idProduct;
-        Products products = null;
+        ProductRequestDTO products = null;
 
         do {
             idProduct = Validate.getInt("Enter productId:", "Invalid range of number", "Invalid input number", 1, Integer.MAX_VALUE);

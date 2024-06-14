@@ -1,4 +1,5 @@
 package org.groceries.DAO;
+import org.groceries.entities.ProductRequestDTO;
 import org.groceries.entities.Products;
 import org.groceries.entities.ResponseOrderDTO;
 import org.groceries.entities.ResponseOrderDetailsDTO;
@@ -23,7 +24,7 @@ public class OrderDAO extends DBUtils{
 
     }
 
-    public boolean addOrderandOrderDetails(int customerID, String orderDate, String status, List<Products> listProduct, int quantity){
+    public boolean addOrderandOrderDetails(int customerID, String orderDate, String status, List<ProductRequestDTO> listProduct, int quantity){
         String sql = "INSERT INTO [dbo].[Orders]\n" +
                 "           ([CustomerID]\n" +
                 "           ,[OrderDate]\n" +
@@ -52,7 +53,7 @@ public class OrderDAO extends DBUtils{
             try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     int orderId = generatedKeys.getInt(1);
-                    for (Products o : listProduct){
+                    for (ProductRequestDTO o : listProduct){
                         ps = connection.prepareStatement(sqlInsertOrderDetails);
                         ps.setInt(1, orderId);
                         ps.setInt(2, o.getProductId());
@@ -189,11 +190,11 @@ public class OrderDAO extends DBUtils{
         }
     }
 
-    public Products findProductById(int idProduct) {
+    public ProductRequestDTO findProductById(int idProduct) {
         String sql = "select * from Products p\n" +
                 "where p.ProductID = ?";
 
-        Products products = null;
+        ProductRequestDTO products = null;
         try  (Connection connection = DBUtils.getConnection()) {
             ps = connection.prepareStatement(sql);
             ps.setInt(1, idProduct);
@@ -208,7 +209,8 @@ public class OrderDAO extends DBUtils{
                 int stock = rs.getInt(5);
                 BigDecimal cost = rs.getBigDecimal(6);
 
-                products = new Products(id, name, category, price, stock, cost);
+                products = new ProductRequestDTO(id, name, category, price, stock, cost);
+
 
             }
 

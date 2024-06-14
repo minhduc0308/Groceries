@@ -132,4 +132,24 @@ public class Validate {
 
         return date;
     }
+
+    public static double getDouble(
+            String messageInfo,
+            String messageErrorOutOfRange,
+            String messageInvalid,
+            double min, double max
+    ) {
+        while (true) {
+            try {
+                System.out.println(messageInfo);
+                double number = Double.parseDouble(SCANNER.nextLine());
+                if (number >= min && number <= max) {
+                    return number;
+                }
+                System.out.println(messageErrorOutOfRange);
+            } catch (NumberFormatException e) {
+                System.out.println(messageInvalid);
+            }
+        }
+    }
 }
